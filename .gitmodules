@@ -1,0 +1,3 @@
+[submodule "externals/QualityEnforcer"]
+	path = externals/QualityEnforcer
+	url = git://github.com/QualityEnforcer/QualityEnforcer.git
