@@ -1,0 +1,13 @@
+﻿## Code Quality Enforcement
+
+I'm a bot that determines the most common coding styles in your project and attempts to make that style consistent across your whole
+repository.
+
+### Change Summary
+
+{changes}
+
+[My Source Code](https://github.com/QualityEnforcer/QualityEnforcerBot) | [More Information](#) | [My Author](https://github.com/SirCmpwn)
+
+If I did something wrong, or if you want more featues, pull requests are always welcome. This is an **automated tool**, and no human
+reviewed these changes. Please ensure that they are correct before merging. If they aren't, leaving an [issue](#) would be appriciated.

@@ -22,6 +22,7 @@ namespace QualityEnforcerBot
         private const string EditIssueUrl = "https://api.github.com/repos/{0}/issues/{1}";
         private const string GetPullRequestUrl = "https://api.github.com/repos/{0}/pulls/{1}";
         private const string DeleteRepositoryUrl = "https://api.github.com/repos/{0}";
+        private const string GetRepositoryUrl = "https://api.github.com/repos/{0}";
 
         private static string AuthString;
         internal static string Username, Password;
@@ -57,6 +58,20 @@ namespace QualityEnforcerBot
                 Remote = gitUrl,
                 Name = json["full_name"].Value<string>()
             };
+        }
+
+        public static string GetRepositoryFullName(string repository)
+        {
+            var request = CreateGet(string.Format(GetRepositoryUrl, repository));
+            try
+            {
+                var response = request.GetResponse();
+                var reader = new StreamReader(response.GetResponseStream());
+                var json = reader.ReadToEnd();
+                var repo = JObject.Parse(json);
+                return repo["full_name"].Value<string>();
+            }
+            catch { return null; }
         }
 
         public static List<string> GetRepositories()
