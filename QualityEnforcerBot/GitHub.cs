@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Web;
 using System.Threading;
 
-namespace shitfixer
+namespace QualityEnforcerBot
 {
     public class GitHub
     {

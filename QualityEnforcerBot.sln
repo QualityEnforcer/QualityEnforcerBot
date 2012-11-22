@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QualityEnforcerBot", "QualityEnforcerBot.csproj", "{53237DD5-19EF-4E6A-8579-C2307E68DE00}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QualityEnforcerBot", "QualityEnforcerBot\QualityEnforcerBot.csproj", "{53237DD5-19EF-4E6A-8579-C2307E68DE00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QualityEnforcer", "externals\QualityEnforcer\QualityEnforcer\QualityEnforcer.csproj", "{22858380-A843-4C30-888A-06705E89BF9E}"
 EndProject
