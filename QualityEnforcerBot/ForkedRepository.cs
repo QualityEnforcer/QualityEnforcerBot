@@ -9,6 +9,7 @@ namespace QualityEnforcerBot
     public class ForkedRepository
     {
         public string Name { get; set; }
+        public string Origin { get; set; }
         public DateTime Expiry { get; set; }
         public int PullRequest { get; set; }
     }

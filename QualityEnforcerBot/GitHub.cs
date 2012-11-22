@@ -14,7 +14,8 @@ namespace QualityEnforcerBot
     public class GitHub
     {
         private const string ForkUrl = "https://api.github.com/repos/{0}/forks";
-        private const string ListRepositoriesUrl = "https://api.github.com/user/repos?sort=created";
+        private const string ListRepositoriesUrl = "https://api.github.com/orgs/{0}/repos";
+        private const string UserRepositoriesUrl = "https://api.github.com/user/repos?sort=created";
         private const string PullRequestUrl = "https://api.github.com/repos/{0}/pulls";
         private const string ListIssuesUrl = "https://api.github.com/repos/{0}/issues";
         private const string IssueDetails = "https://api.github.com/repos/{0}/issues/{1}";
@@ -49,7 +50,7 @@ namespace QualityEnforcerBot
             // Force a 5 second sleep
             Thread.Sleep(5000); // longer?
             DateTime timeout = DateTime.Now.AddMinutes(5);
-            while (!GetRepositories().Contains(gitUrl) && DateTime.Now < timeout)
+            while (!GetUserRepositories().Contains(gitUrl) && DateTime.Now < timeout)
                 Thread.Sleep(5000);
             if (DateTime.Now > timeout)
                 return null;
@@ -76,7 +77,20 @@ namespace QualityEnforcerBot
 
         public static List<string> GetRepositories()
         {
-            var request = CreateGet(ListRepositoriesUrl);
+            var request = CreateGet(string.Format(ListRepositoriesUrl, Program.OrganizationName));
+            var response = request.GetResponse();
+            var reader = new StreamReader(response.GetResponseStream());
+            var json = reader.ReadToEnd();
+            var repos = JArray.Parse(json);
+            List<string> results = new List<string>();
+            foreach (var repo in repos)
+                results.Add(repo["html_url"].Value<string>() + ".git");
+            return results;
+        }
+
+        public static List<string> GetUserRepositories()
+        {
+            var request = CreateGet(UserRepositoriesUrl);
             var response = request.GetResponse();
             var reader = new StreamReader(response.GetResponseStream());
             var json = reader.ReadToEnd();
