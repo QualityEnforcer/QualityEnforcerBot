@@ -16,7 +16,7 @@ namespace QualityEnforcerBot
 {
     public class Program
     {
-        private const int MinutesBetweenUpdates = 1;
+        private const int MinutesBetweenUpdates = 10;
         private const int MillisecondsBetweenUpdates = MinutesBetweenUpdates * 60 * 1000;
 
         public const string BaseRepository = "QualityEnforcer/QualityEnforcerBot";
