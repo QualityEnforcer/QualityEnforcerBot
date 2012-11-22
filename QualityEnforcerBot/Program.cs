@@ -16,7 +16,7 @@ namespace QualityEnforcerBot
 {
     public class Program
     {
-        private const int MinutesBetweenUpdates = 10;
+        private const int MinutesBetweenUpdates = 1;
         private const int MillisecondsBetweenUpdates = MinutesBetweenUpdates * 60 * 1000;
 
         public const string BaseRepository = "QualityEnforcer/QualityEnforcerBot";
@@ -35,7 +35,7 @@ namespace QualityEnforcerBot
             // Do initialization
             GitHub.Login();
             //TempDirectory = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString().Replace("-", ""));
-            // Who's the asshat at Windows that said you shouldn't be able to delete your own shit from temp
+            // Who's the asshat at Microsoft that said you shouldn't be able to delete your own shit from temp
             TempDirectory = "Temp";
             Directory.CreateDirectory(TempDirectory);
             PendingRepositories = new List<ForkedRepository>();
@@ -111,9 +111,12 @@ namespace QualityEnforcerBot
                 var project = Enforcer.AnalyzeDirectory(cloneDir);
                 GitHub.CommentOnIssue(issue.IssueNumber, BaseRepository, QualityEnforcer.Program.GenerateAnalysis(project));
 
+                var details = GitHub.GetIssueBody(issue.IssueNumber, BaseRepository);
+                var rules = QualityRules.Parse(details);
+
                 // Run cleanup
                 Console.WriteLine("Cleaning up " + fullName);
-                var results = Enforcer.EnforceQuality(project, new QualityRules());
+                var results = Enforcer.EnforceQuality(project, rules);
                 var status = GetStatus(repository);
                 if (!results.Any || status.IsClean())
                 {
@@ -159,7 +162,8 @@ namespace QualityEnforcerBot
                     }
                     catch
                     {
-                        Thread.Sleep(5000); // Most of the errors creating a pull request are from GitHub lagging beind
+                        Thread.Sleep(5000);
+                        // Most of the errors creating a pull request are from GitHub lagging beind
                         // yes I know this is terrible
                     }
                 }
