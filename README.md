@@ -1,6 +1,8 @@
 # Quality Enforcer Bot
 
-I am a bot that can detect your coding style and make it consistent across your entire repository.
+I am a bot that can detect your coding style and make it consistent across your entire repository **and I am no longer
+actively running**. If you are someone who wants to host the bot, make an issue to let us know. Otherwise, you can run
+the [quality enforcer](https://github.com/QualityEnforcer/QualityEnforcer) locally.
 
 ## Usage
 
